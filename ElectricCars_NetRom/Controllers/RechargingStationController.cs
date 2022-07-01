@@ -5,19 +5,25 @@ namespace ElectricCars_NetRom.Controllers
 {
     public class RechargingStationController : Controller
     {   
-        private ElectricCars_NetRomContext _dbd;
+        private ElectricCars_NetRomContext _changingStationContext;
 
         public RechargingStationController(ElectricCars_NetRomContext dbConn )
         {
-            _dbd = dbConn;
+            _changingStationContext = dbConn;
         }
 
 
         public IActionResult Index()
         {
-            return View(_dbd.Stations);
+            return View(_changingStationContext.Stations);
         }
 
+        public IActionResult Details(int id)
+        {
+            var station = _changingStationContext.Stations.FirstOrDefault(s => s.Id == id);
+
+            return View(station);
+        }
 
 
     }

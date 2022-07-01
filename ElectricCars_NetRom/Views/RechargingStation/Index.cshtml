@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Station>
+@{
     ViewData["Title"] = "Station Page";
 }
 
@@ -9,14 +10,17 @@
         <th>Station Name </th>  
         <th>City </th>  
         <th>Adress </th>  
+        <th>Action</th>
     </tr>  
+
     @foreach (var d in Model)  
     {  
         <tr>  
-            <td>@d.Id</td>  
-            <td>@d.Name</td>  
-            <td>@d.City</td>  
-            <td>@d.Adress</td>  
+           <td>@d.Id</td>
+           <td>@d.Name</td>  
+           <td>@d.City</td>  
+           <td>@d.Adress</td>  
+           <td><a asp-route-id="@d.Id" asp-action="Details">Details</a></td>
         </tr>  
     }  
 </table>  

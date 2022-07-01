@@ -9,6 +9,7 @@ namespace ElectricCars_NetRom.Models.DB
         {
             Plugs = new HashSet<Plug>();
         }
+        
 
         public int Id { get; set; }
         public string Name { get; set; } = null!;
