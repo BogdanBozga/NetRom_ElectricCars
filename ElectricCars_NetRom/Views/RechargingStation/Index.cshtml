@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Station Page";
+}
+
+<div class="text-center">
+<table class="table table-bordered table-responsive table-hover">  
+    <tr>  
+        <th>Staition Id </th>  
+        <th>Station Name </th>  
+        <th>City </th>  
+        <th>Adress </th>  
+    </tr>  
+    @foreach (var d in Model)  
+    {  
+        <tr>  
+            <td>@d.Id</td>  
+            <td>@d.Name</td>  
+            <td>@d.City</td>  
+            <td>@d.Adress</td>  
+        </tr>  
+    }  
+</table>  
+</div>
