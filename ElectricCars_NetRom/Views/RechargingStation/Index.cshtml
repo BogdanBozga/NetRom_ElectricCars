@@ -20,7 +20,9 @@
            <td>@d.Name</td>  
            <td>@d.City</td>  
            <td>@d.Adress</td>  
-           <td><a asp-route-id="@d.Id" asp-action="Details">Details</a></td>
+           <td><a asp-route-id="@d.Id" asp-action="Details" style="color:#008000;"><b>Details</b></a> <br /><br />
+               <a asp-route-id="@d.Id" asp-action="DeleteStation" style="color:#FF0000;"><b>Delete</b></a>
+           </td>
         </tr>  
     }  
 </table>  
