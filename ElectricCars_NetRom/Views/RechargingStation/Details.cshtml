@@ -1,29 +1,27 @@
-﻿@model IEnumerable<ElectricCars_NetRom.Models.DB.StationAndPlugType>
+﻿@model Station
 <div class = "container">
-	<label><b>@Model.ElementAt(0).StationName</b></label><br />
-	<label><b>@Model.ElementAt(0).StationCity</b></label><br />
-	<label><b>@Model.ElementAt(0).StationAdress</b></label><br />
-@*	<label asp-for = "StationCity"><b>@Model.StationCity</b></label>
-	<label asp-for = "StationAdress"><b>@Model.StationAdress</b></label>*@
+	<label><b>@Model.Name</b></label><br />
+	<label><b>@Model.City</b></label><br />
+	<label><b>@Model.Adress</b></label><br />
 
-
+    <a asp-route-id="@Model.Id" asp-controller="Add" asp-action="AddPlug" style="color:#FF8800;"><b>Add new plug</b> </a>
 	<table class="table table-bordered table-responsive table-hover">  
     <tr>  
-        <th>PlugTypeName </th>  
-        <th>PlugId </th>  
+        <th>Plug Number </th>  
+        <th>Plug Type </th>  
         <th>Action</th>
     </tr>  
 
-    @foreach (var d in Model)  
+    @foreach (var d in Model.Plugs)  
     {  
         <tr>  
-           <td>@d.PlugTypeName</td>  
-           <td>@d.PlugId</td>  
-           <td><a asp-route-id="@d.PlugId" asp-action="Booking" style="color:#008000;"> <b>Booking</b></a> <br /><br />
-               <a asp-route-id="@d.PlugId" asp-action="DeletePlug" style="color:#FF0000;"><b>Delete</b> </a>
+           <td>@d.Id</td>  
+           <td>@d.Type.Name</td>  
+           <td><a asp-route-id="@d.Id" asp-action="Booking" style="color:#008000;"> <b>Booking</b></a> <br /><br />
+               <a asp-route-id="@d.Id" asp-action="DeletePlug" style="color:#FF0000;"><b>Delete</b> </a>
            </td>
         </tr>  
     }  
 </table>  
-
+    
 </div>
