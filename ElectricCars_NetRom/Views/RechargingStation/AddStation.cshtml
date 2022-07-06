@@ -1,21 +1,23 @@
 ﻿@model Station
+
+
 <div class="row">
 	<div class="col-md-4">
-		<form asp-action="SaveStation" onsubmit="return validateForm()" method="post" required>
+		<form asp-action="SaveStation" method="post">
 			<div>
 				<div class="form-group">
 					<label asp-for="Name" class="control-label">Station name</label>
-					<input asp-for="Name" class="form-control" />
+					<input asp-for="Name" class="form-control" required=true/>
 					<span asp-validation-for="Name" class="text-danger"></span>
 				</div>
 				<div class="form-group">
 					<label asp-for="City" class="control-label">Station city</label>
-					<input asp-for="City" class="form-control" />
+					<input asp-for="City" class="form-control" required=true/>
 					<span asp-validation-for="City" class="text-danger"></span>
 				</div>
 				<div class="form-group">
 					<label asp-for="Adress" class="control-label">Station address</label>
-					<input asp-for="Adress" class="form-control" />
+					<input asp-for="Adress" class="form-control" required=true/>
 					<span asp-validation-for="Adress" class="text-danger"></span>
 				</div>
 				<div class="form-group">
@@ -25,8 +27,7 @@
 			</div>
 		</form>
 	</div>
-	<div>
+	<div> <br/><br/>
 		<a asp-action="Index" style="color:#FF8800;"><b>Back to details page</b> </a>
 	</div>
-
 </div>

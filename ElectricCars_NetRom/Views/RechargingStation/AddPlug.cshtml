@@ -1,0 +1,19 @@
+﻿@model StationPlugViewModel
+<div class="row">
+	<form asp-action="SavePlug" method="post">
+		<div>
+			<label>
+				<select asp-for="PlugTypeId">
+					@foreach(var d in Model.PlugTypes)
+					{
+						<option value="@d.Id">@d.Name</option>
+					}
+				</select>
+                <input asp-for="@Model.StationId" hidden />
+			</label>
+			<div class="form-group"><br /> <br />
+				<input type="submit" value="Save plug" class="btn btn-primary" />
+			</div>
+		</div>
+		</form>
+</div>

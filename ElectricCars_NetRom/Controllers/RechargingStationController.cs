@@ -1,6 +1,9 @@
 ﻿using ElectricCars_NetRom.Models.DB;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ElectricCars_NetRom.Models.ViewModel;
+
+
 
 namespace ElectricCars_NetRom.Controllers
 {
@@ -61,12 +64,6 @@ namespace ElectricCars_NetRom.Controllers
         [ActionName("SaveStation")]
         public IActionResult SaveStation(Station StationInstance)
         { 
-
-            //if(StationInstance.Name == null || StationInstance.City == null || StationInstance.Adress == null)
-            
-                
-            
-
             Station newStation = new Station();
             newStation.Name = StationInstance.Name;
             newStation.City = StationInstance.City;
@@ -74,14 +71,32 @@ namespace ElectricCars_NetRom.Controllers
             _changingStationContext.Add(newStation);
             _changingStationContext.SaveChanges();
 
-            return RedirectToAction("Index", "RechargingStation");
+            return RedirectToAction("Index");
         }
 
 
-        public IActionResult AddPlug(int idStation)
+        private StationPlugViewModel stationPlugViewModel = new StationPlugViewModel();
+        public ActionResult AddPlug(int id)
         {
-            return RedirectToAction("Index", "RechargingStation");
+            stationPlugViewModel.StationId = id;
+            stationPlugViewModel.PlugTypes = _changingStationContext.PlugTypes.ToList();
+            return View(stationPlugViewModel);
         }
+
+        [HttpPost]
+        [ActionName("SavePlug")]
+        public IActionResult SavePlug(StationPlugViewModel spModel)
+        {
+            Plug newPlug = new Plug();
+            newPlug.StationId = spModel.StationId;
+            newPlug.TypeId = spModel.PlugTypeId;
+            _changingStationContext.Add(newPlug);
+            _changingStationContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }

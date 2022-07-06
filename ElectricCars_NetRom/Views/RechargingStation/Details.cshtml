@@ -3,8 +3,10 @@
 	<label><b>@Model.Name</b></label><br />
 	<label><b>@Model.City</b></label><br />
 	<label><b>@Model.Adress</b></label><br />
+	<label><b>@Model.Id</b></label><br />
 
-    <a asp-route-id="@Model.Id" asp-controller="Add" asp-action="AddPlug" style="color:#FF8800;"><b>Add new plug</b> </a>
+    <a asp-route-id="@Model.Id" asp-action="AddPlug" style="color:#FF8800;"><b>Add new plug</b> </a>
+
 	<table class="table table-bordered table-responsive table-hover">  
     <tr>  
         <th>Plug Number </th>  
