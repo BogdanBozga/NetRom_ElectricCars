@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ElectricCars_NetRom.Models.ViewModel;
+using System.Text.RegularExpressions;
 
 namespace ElectricCars_NetRom.Controllers
 {
@@ -42,7 +43,44 @@ namespace ElectricCars_NetRom.Controllers
                 {
                     ModelState.AddModelError(nameof(Booking.EndDate), "Minimal recharging time is 30 minutes");
                 }
-                if(ModelState.IsValid){
+                if(booking.StartDate.Date != booking.EndDate.Date)
+                {
+                    ModelState.AddModelError(nameof(Booking.EndDate), "The resevation must end in the same day");
+                }
+
+                //https://fleetlogging.com/european-license-number-plates/
+                //Some of the EU car plate number formats
+                string strRegex = @"([A-Z]{2}\d{2}[A-Z]{3})|([B]{1}\d{2}[A-Z]{3})|([A-Z]{2}\d{3}[A-Z]{2})
+                                    |([A-Z]{2}\d{5})|([A-Z]{3}\d{3})";
+                Regex re = new Regex(strRegex);
+                if (!re.IsMatch(booking.CarNumber))
+                {
+                    ModelState.AddModelError(nameof(Booking.CarNumber), "Car plate number wrong format or non EU");
+                }
+
+
+                List<Booking> booketDayPeriod = _Context.Bookings.Where(m => m.StartDate.Year ==booking.StartDate.Year &&
+                                                                        m.StartDate.Month == booking.StartDate.Month && 
+                                                                        m.StartDate.Day == booking.StartDate.Day).ToList();
+
+                if( !(booketDayPeriod.Count == 0))
+                {
+                    foreach(Booking b in booketDayPeriod)
+                    {
+                        if(booking.StartDate < b.StartDate && booking.EndDate > b.StartDate)
+                        {
+                            ModelState.AddModelError(nameof(Booking.EndDate), "Other booking is schegule to start before this time, chose a end time befor this one");
+                            break;
+                        }
+                        if(booking.StartDate > b.StartDate && booking.StartDate < b.EndDate)
+                        {
+                            ModelState.AddModelError(nameof(Booking.StartDate), "Other booking is schegule in this period, chose a start time after this one");
+                            break;    
+                        }
+                    }
+                }
+
+                if (ModelState.IsValid){
                     Booking newBookingSave = new Booking();
                     newBookingSave.StartDate = booking.StartDate;
                     newBookingSave.EndDate = booking.EndDate;
