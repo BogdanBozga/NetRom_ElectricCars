@@ -1,0 +1,40 @@
+﻿@model Booking
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="SaveBooking" method="post">
+			<div>
+				<div class="form-group">
+					<label asp-for="CarNumber" class="control-label">Car Number</label>
+					<input asp-for="CarNumber" class="form-control" required=true/>
+					<span asp-validation-for="CarNumber" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+
+					<label asp-for="StartDate" class="control-label">Start Date and Time</label>
+					<input asp-for="StartDate" class="form-control" type="datetime-local" min="@DateTime.Now" required=true/>
+					<span asp-validation-for="StartDate" class="text-danger"></span>
+				</div>
+				<div class="form-group">
+
+					<label asp-for="EndDate" class="control-label">End Date And Time</label>
+					<input asp-for="EndDate" class="form-control" type="datetime-local" min="@DateTime.Now" required=true/>
+					<span asp-validation-for="EndDate" class="text-danger"></span>
+				</div>
+				<div>
+					<input asp-for="@Model.PlugId" hidden />
+				</div>
+				@*
+					public Guid? UserId { get; set; }
+					This need to be implemeted if we make users
+				*@
+				<div class="form-group">
+					<input type="submit" value="Save Booking" class="btn btn-primary" />
+				</div>
+
+			</div>
+		</form>
+	</div>
+	<div> <br/><br/>
+		<a asp-action="Index" asp-controller="RechargingStation" style="color:#FF8800;"><b>Back to details page</b> </a>
+	</div>
+</div>
