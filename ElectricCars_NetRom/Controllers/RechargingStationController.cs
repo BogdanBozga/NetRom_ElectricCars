@@ -35,17 +35,26 @@ namespace ElectricCars_NetRom.Controllers
         public IActionResult Map(int Id)
         {
             Station station = _changingStationContext.Stations.FirstOrDefault(m => m.Id == Id);
-            string city = station.City;
-            string address = station.Adress;
-            string name = station.Name;
-            name = name.Replace(" ", "+");
-            name = name.Replace(",", "%2C");
-            address = address.Replace(" ", "+");
-            address = address.Replace(",", "%2C");
-            string url = "https://www.google.com/maps/search/?api=1&query=";
-            url = url + name+ "+" + city + "+" + address;
-            Console.WriteLine(url);
-            Response.Redirect(url);
+            if (station != null)
+            {
+                string city = station.City;
+                string address = station.Adress;
+                string name = station.Name;
+                name = name.Replace(" ", "+");
+                name = name.Replace(",", "%2C");
+                address = address.Replace(" ", "+");
+                address = address.Replace(",", "%2C");
+                string url = "https://www.google.com/maps/search/?api=1&query=";
+                url = url + name + "+" + city + "+" + address;
+                Console.WriteLine(url);
+                Response.Redirect(url);
+            }
+            else
+            {
+                string url = "https://www.google.com/maps/search/?api=1&query=";
+                Console.WriteLine(url);
+                Response.Redirect(url);
+            }
             return RedirectToAction("Index");
         }
 

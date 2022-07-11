@@ -17,19 +17,31 @@ namespace ElectricCars_NetRom.Controllers
             _Context = dbConn;
         }
 
-
+        private List<StartEndTime> bookingTimesVariable = new List<StartEndTime> { new StartEndTime() };
         public IActionResult Index(int Id)
         {
-            Booking booking = new Booking();
-            booking.PlugId = Id;
-            return View(booking);
+            BookingAndTimes specialBooking = new BookingAndTimes();
+            specialBooking.PlugId = Id;
+            specialBooking.bookedTimes = new List<StartEndTime> { new StartEndTime() }; 
+            List<Booking> bookings = _Context.Bookings.Where(m => m.PlugId == Id ).ToList();
+
+            foreach(Booking b in bookings)
+            {
+                StartEndTime aux = new StartEndTime();
+                aux.startTime = b.StartDate;
+                aux.endTime = b.EndDate;
+                bookingTimesVariable.Add(aux);
+            }
+            specialBooking.bookedTimes = bookingTimesVariable;
+            return View(specialBooking);
         }
 
 
         [HttpPost]
         [ActionName("SaveBooking")]
-        public IActionResult SaveBoooking(Booking booking)
+        public IActionResult SaveBoooking(BookingAndTimes booking)
         {
+                booking.bookedTimes = bookingTimesVariable;
                 ModelState.Clear();
                 if (booking.StartDate > booking.EndDate)
                 {

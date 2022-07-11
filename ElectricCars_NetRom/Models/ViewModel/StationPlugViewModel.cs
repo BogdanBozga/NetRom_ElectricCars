@@ -9,8 +9,5 @@ namespace ElectricCars_NetRom.Models.ViewModel
         public IList<PlugType>? PlugTypes { get; set; }
         public int PlugTypeId { get; set; }
 
-
-
-
     }
 }
