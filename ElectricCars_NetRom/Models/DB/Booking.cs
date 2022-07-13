@@ -19,5 +19,9 @@ namespace ElectricCars_NetRom.Models.DB
 
         public virtual Plug Plug { get; set; } = null!;
         public virtual User? User { get; set; }
+
+
+
+
     }
 }

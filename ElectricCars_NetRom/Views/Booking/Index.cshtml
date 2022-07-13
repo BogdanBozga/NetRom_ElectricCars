@@ -1,10 +1,10 @@
 ﻿@model BookingAndTimes
-<link href="~/css/calendar.css" rel="stylesheet"/>
+
 @section scripts {
 	<script type="text/javascript" src="~/js/calendar.js"></script>
 }
 <div class="row">
-	<div class="column">
+@*	<div class="column">
 		<div class="col-md-4">
 			<form asp-action="SaveBooking" method="post">
 				<div>
@@ -28,10 +28,10 @@
 					<div>
 						<input asp-for="@Model.PlugId" hidden />
 					</div>					
-					@*
-						public Guid? UserId { get; set; }
-						This need to be implemeted if we make users
-					*@
+					
+						//public Guid? UserId { get; set; }
+						//This need to be implemeted if we make users
+					
 					<div class="form-group">
 						<input type="submit" value="Save Booking" class="btn btn-primary" />
 					</div>
@@ -41,54 +41,62 @@
 		<div> <br/><br/>
 			<a asp-action="Index" asp-controller="RechargingStation" style="color:#FF8800;"><b>Back to details page</b> </a>
 		</div>
-	</div>
+	</div>*@
 
 	<div class="column">
+		<link href="~/css/calendar.css" rel="stylesheet"/>
 		<div class="cd-schedule loading">
 			<div class="timeline">
 				<ul>
 					<li><span>00:00</span></li>
+					<li><span>00:30</span></li>
 					<li><span>01:00</span></li>
+					<li><span>01:30</span></li>
 					<li><span>02:00</span></li>
+					<li><span>02:30</span></li>
 					<li><span>03:00</span></li>
+					<li><span>03:30</span></li>
 					<li><span>04:00</span></li>
+					<li><span>04:30</span></li>
 					<li><span>05:00</span></li>
-					@*<li><span>05:30</span></li>*@
+					<li><span>05:30</span></li>
 					<li><span>06:00</span></li>
-					@*<li><span>06:30</span></li>*@
+					<li><span>06:30</span></li>
 					<li><span>07:00</span></li>
-					@*<li><span>07:30</span></li>*@
+					<li><span>07:30</span></li>
 					<li><span>08:00</span></li>
-					@*<li><span>08:30</span></li>*@
+					<li><span>08:30</span></li>
 					<li><span>09:00</span></li>
-					@*<li><span>09:30</span></li>*@
+					<li><span>09:30</span></li>
 					<li><span>10:00</span></li>
-					@*<li><span>10:30</span></li>*@
+					<li><span>10:30</span></li>
 					<li><span>11:00</span></li>
-					@*<li><span>11:30</span></li>*@
+					<li><span>11:30</span></li>
 					<li><span>12:00</span></li>
-					@*<li><span>12:30</span></li>*@
+					<li><span>12:30</span></li>
 					<li><span>13:00</span></li>
-					@*<li><span>13:30</span></li>*@
+					<li><span>13:30</span></li>
 					<li><span>14:00</span></li>
-					@*<li><span>14:30</span></li>*@
+					<li><span>14:30</span></li>
 					<li><span>15:00</span></li>
-					@*<li><span>15:30</span></li>*@
+					<li><span>15:30</span></li>
 					<li><span>16:00</span></li>
-					@*<li><span>16:30</span></li>*@
+					<li><span>16:30</span></li>
 					<li><span>17:00</span></li>
-					@*<li><span>17:30</span></li>*@
+					<li><span>17:30</span></li>
 					<li><span>18:00</span></li>					
-					@*<li><span>18:30</span></li>*@
+					<li><span>18:30</span></li>
 					<li><span>19:00</span></li>					
-					@*<li><span>19:30</span></li>*@
+					<li><span>19:30</span></li>
 					<li><span>20:00</span></li>					
-					@*<li><span>20:30</span></li>*@
+					<li><span>20:30</span></li>
 					<li><span>21:00</span></li>					
-					@*<li><span>21:30</span></li>*@
+					<li><span>21:30</span></li>
 					<li><span>22:00</span></li>					
-					@*<li><span>22:30</span></li>*@
+					<li><span>22:30</span></li>
 					<li><span>23:00</span></li>
+					<li><span>23:30</span></li>
+					<li><span>24:00</span></li>
 				</ul>
 			</div> <!-- .timeline -->
 
@@ -97,28 +105,26 @@
 					@{
 						DateTime currentTime = DateTime.Now;
 					}
-
-
 					@for(int i = 0; i < 7; i++)
 					{
-
-							<li class="events-group">
-								<div class="top-info"><span>@currentTime.Date.AddDays(i).ToString("dddd, dd MMMM yyyy")</span></div>
-								@foreach (StartEndTime seTime in Model.bookedTimes)
+						<li class="events-group">
+							<div class="top-info"><span>@currentTime.Date.AddDays(i).ToString("dddd, dd MMMM yyyy")</span></div>
+							<ul>
+								@foreach (StartEndTime seTime in Model.BookedTimes)
 								{
-									@if (seTime.startTime.Date.ToString("dd/MM/yyyy") == currentTime.AddDays(i).ToString("dd/MM/yyyy"))
+									@if (seTime.startTime.Date == currentTime.Date.AddDays(i))
 									{
-										<script>alert(@seTime.startTime.ToString("HH:mm")+"  "+ @seTime.endTime.ToString("HH:mm"))</script>
-										<ul>
-											<li class="single-event" data-start=@seTime.startTime.ToString("HH:mm"); data-end=@seTime.endTime.ToString("HH:mm");  data-content="event-yoga-1" data-event="event-1">
+										
+											<li class="single-event" data-day = "@seTime.startTime.DayOfWeek" data-start="@seTime.startTime.ToString("HH:mm")" data-end="@seTime.endTime.ToString("HH:mm")"  data-event="event-1">
 												<a href="#0">
-													<em class="event-name">Already Booked</em>
+													<em class="event-name"></em>
 												</a>
 											</li>
-										</ul>
+										
 									}
 								}
-							</li>
+							</ul>
+						</li>
 					}
 				</ul>
 
@@ -143,16 +149,6 @@
 
 			<div class="cover-layer"></div>
 		</div> <!-- .cd-schedule -->
-
-
-
-
-
-
-
-
-
-
 		</div>
 	</div>
 </div>

@@ -267,13 +267,14 @@ Main Components
     font-weight: normal;
     margin-bottom: 0;
   }
-  .cd-schedule .events .events-group > ul {
-    height: 950px;
-    /* reset style */
-    display: block;
-    overflow: visible;
-    padding: 0;
-  }
+    .cd-schedule .events .events-group > ul {
+        height: 950px;
+        /*2400px*/
+        /* reset style */
+        display: block;
+        overflow: visible;
+        padding: 0;
+    }
   .cd-schedule .events .events-group > ul::after {
     clear: both;
     content: "";
@@ -359,12 +360,12 @@ Main Components
 
 .cd-schedule .single-event[data-event="event-1"],
 .cd-schedule [data-event="event-4"] .header-bg {
-  background: #f6b067;
+    background: #f77f7f;
 }
 
-.cd-schedule .single-event[data-event="event-1"]:hover {
-  background: ##F7817F;
-}
+    .cd-schedule .single-event[data-event="event-1"]:hover {
+        background: #f77fa3;
+    }
 
 .cd-schedule .event-modal {
   position: fixed;

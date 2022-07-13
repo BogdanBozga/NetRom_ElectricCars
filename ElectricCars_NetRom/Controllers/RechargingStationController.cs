@@ -32,7 +32,7 @@ namespace ElectricCars_NetRom.Controllers
             return View(station);
         }
 
-        public IActionResult Map(int Id)
+        public string ShowMap(int Id)
         {
             Station station = _changingStationContext.Stations.FirstOrDefault(m => m.Id == Id);
             if (station != null)
@@ -44,18 +44,12 @@ namespace ElectricCars_NetRom.Controllers
                 name = name.Replace(",", "%2C");
                 address = address.Replace(" ", "+");
                 address = address.Replace(",", "%2C");
-                string url = "https://www.google.com/maps/search/?api=1&query=";
-                url = url + name + "+" + city + "+" + address;
-                Console.WriteLine(url);
-                Response.Redirect(url);
+                string Urll = "https://www.google.com/maps/search/?api=1&query=";
+                Urll = Urll + name + "+" + city + "+" + address;
+                return Urll;
             }
-            else
-            {
-                string url = "https://www.google.com/maps/search/?api=1&query=";
-                Console.WriteLine(url);
-                Response.Redirect(url);
-            }
-            return RedirectToAction("Index");
+            string Url = "https://www.google.com/maps/search/?api=1&query=";
+            return Url;
         }
 
         public IActionResult Booking(int id)
