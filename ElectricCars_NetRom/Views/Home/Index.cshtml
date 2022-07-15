@@ -1,8 +1,86 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Percentage";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+
+
+
+
+
+@model Statistics
+<canvas id="myChart" width="400" height="400"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['has.to.be Charging Station','be.energised Charging Station','Renovatio e-charge Charging Station','test'],
+        datasets: [{
+            label: '# of Votes',
+            data: [1.5,0,0,0],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+
+            ],
+            borderColor: [
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                suggestedMax : 100
+            }
+        }
+    }
+});
+</script>
+
+
+@*<script>
+
+    //var labels = @Model.GetAllNames();
+    //    var datas = @Model.GetAllPercentages();
+    //    var labelsArray = new Array();
+    //    var dataArray = new Array();
+    //    for (var i = 0; i <labels.split(',').length; i++) {
+    //        labelsArray.push(labels.split(',')[i]);
+    //        dataArray.push(datas.split(',')[i]);
+    //    }
+
+
+
+
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+
+            ],
+            borderColor: [
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>*@

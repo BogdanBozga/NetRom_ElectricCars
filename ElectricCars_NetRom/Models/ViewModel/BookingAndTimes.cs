@@ -11,6 +11,6 @@ namespace ElectricCars_NetRom.Models.ViewModel
         public string CarNumber { get; set; } = null!;
         public List<StartEndTime>? BookedTimes { get; set; }
 
-
+        public double WeekInterval { get; set; }
     }
 }

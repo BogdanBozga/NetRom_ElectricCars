@@ -1,34 +1,50 @@
 ﻿@using ElectricCars_NetRom.Controllers
 @model IEnumerable<Station>
 @{
-    ViewData["Title"] = "Station Page";
+	ViewData["Title"] = "Station Page";
 }
-
-<div class="text-center">
-    <a asp-action="AddStation" style="color:#FF8000;"><b>Add new station</b></a> <br /><br />
-<table class="table table-bordered table-responsive table-hover">  
-    <tr>  
-        <th>Staition Id </th>  
-        <th>Station Name </th>  
-        <th>City </th>  
-        <th>Adress </th>  
-        <th>Action</th>
-    </tr>  
-
-    @foreach (var d in Model)  
-    {  
-        <tr>  
-           <td>@d.Id</td>
-           <td>@d.Name</td>  
-           <td>@d.City</td>  
-           <td>@d.Adress</td>  
-           <td><a asp-route-id="@d.Id" asp-action="Details" style="color:#008000;"><b>Details</b></a> <br />
-
-               @*<a href="@d.ShowMap();" style="color:#008099;" target="_blank"> <b>Map</b></a> <br />*@
-               <a href="@d.ShowMap()" style="color:#008099;" target="_blank"> <b>Map</b></a> <br />
-               <a asp-route-id="@d.Id" asp-action="DeleteStation" style="color:#FF0000;"><b>Delete</b></a>
-           </td>
-        </tr>  
-    }  
-</table>  
-</div>
+@section scripts {
+	<script type="text/javascript" src="~/js/searchBar.js"></script>
+}
+	<link href="~/css/searchBar.css" rel="stylesheet" />
+	<div class="center">
+		<a asp-action="AddStation" style="color:#FF8000;"><b>Add new station</b></a> <br /><br />
+	</div>
+	<div class="form-group pull-right">
+		<input type="text" class="search form-control" placeholder="What you looking for?">
+	</div>
+	<span class="counter pull-right"></span>
+	<table class="table table-hover table-bordered results">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th class="col-md-5 col-xs-5">Station Name </th>
+				<th class="col-md-4 col-xs-4">City </th>
+				<th class="col-md-4 col-xs-4">Adress </th>
+				<th class="col-md-3 col-xs-3">Action</th>
+			</tr>
+			<tr class="warning no-result">
+				<td colspan="4"><i class="fa fa-warning"></i> No result</td>
+			</tr>
+		</thead>
+		<tbody>
+			@{
+			var i = 0;
+		}
+		@foreach (var d in Model)
+		{	
+			i=i+1;
+			<tr>
+				<th scope="row">@i</th>
+				<td>@d.Name</td>
+				<td>@d.City</td>
+				<td>@d.Adress</td>
+				<td>
+					<a asp-route-id="@d.Id" asp-action="Details" style="color:#008000;"><b>Details</b></a> <br />
+					<a href="@d.ShowMap()" style="color:#008099;" target="_blank"> <b>Map</b></a> <br />
+					<a asp-route-id="@d.Id" asp-action="DeleteStation" style="color:#FF0000;"><b>Delete</b></a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

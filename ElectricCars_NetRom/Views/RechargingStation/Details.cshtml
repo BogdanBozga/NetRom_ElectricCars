@@ -1,9 +1,9 @@
 ﻿@model Station
 <div class = "container">
-	<label><b>@Model.Name</b></label><br />
-	<label><b>@Model.City</b></label><br />
-	<label><b>@Model.Adress</b></label><br />
-	<label><b>@Model.Id</b></label><br />
+	<h2><label><b>@Model.Name</b></label><br /></h2>
+	<h2><label><b>@Model.City</b></label><br /></h2>
+	<h2><label><b>@Model.Adress</b></label><br /></h2>
+
 
     <a asp-route-id="@Model.Id" asp-action="AddPlug" style="color:#FF8800;"><b>Add new plug</b> </a>
 
@@ -13,7 +13,6 @@
         <th>Plug Type </th>  
         <th>Action</th>
     </tr>  
-
     @foreach (var d in Model.Plugs)  
     {  
         <tr>  
@@ -26,4 +25,5 @@
     }  
 </table>  
     
+
 </div>

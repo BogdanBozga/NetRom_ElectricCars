@@ -19,6 +19,10 @@ namespace ElectricCars_NetRom.Controllers
 
         public IActionResult Index()
         {
+
+
+
+
             return View(_changingStationContext.Stations);
         }
 

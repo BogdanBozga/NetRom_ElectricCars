@@ -18,16 +18,18 @@ namespace ElectricCars_NetRom.Controllers
         }
 
         private static List<StartEndTime> bookingTimesVariable;
+        private static int WeekPeriodVariable;
         public IActionResult Index(int Id)
         {
             bookingTimesVariable = new List<StartEndTime>();
+            WeekPeriodVariable = 0;
             BookingAndTimes specialBooking = new BookingAndTimes();
             specialBooking.PlugId = Id;
             specialBooking.StartDate = DateTime.Now + new TimeSpan(0, 1, 0);
             specialBooking.EndDate = DateTime.Now + new TimeSpan(0, 31, 0);
             specialBooking.BookedTimes = new List<StartEndTime> { new StartEndTime() };
-            List<Booking> bookings = _Context.Bookings.Where(m => m.PlugId == Id && m.StartDate.Date >= DateTime.Now.Date).ToList();
-            //List<Booking> bookings = _Context.Bookings.Where(m => m.PlugId == Id && m.StartDate.Date >= DateTime.Now.Date).OrderBy(m => m.StartDate).ToList();
+            List<Booking> bookings = _Context.Bookings.Where(m => m.PlugId == Id).ToList();
+            
 
             foreach (Booking b in bookings)
             {
@@ -38,6 +40,30 @@ namespace ElectricCars_NetRom.Controllers
             }
             specialBooking.BookedTimes = bookingTimesVariable;
             return View(specialBooking);
+        }
+
+
+        public void NextWeek()
+        {
+          //  BookingAndTimes.WeekInterval += 1;
+          //  Console.WriteLine(BookingAndTimes.WeekInterval);
+        }
+
+        [HttpPost]
+        public IActionResult NextWeek(BookingAndTimes booking)
+        {
+            WeekPeriodVariable += 1;
+            
+            return RedirectToAction("Index", booking.PlugId);
+        }
+
+        [HttpPost]
+        public IActionResult PreviousWeek(BookingAndTimes booking)
+        {
+           // booking.BookedTimes = bookingTimesVariable;
+            WeekPeriodVariable -= 1;
+           // booking.WeekInterval = WeekPeriodVariable;
+            return View("Index", booking);
         }
 
 
